@@ -1,0 +1,32 @@
+:root {
+  /* 普通阴影 */
+  --primary-shadow:rgba(0, 0, 0, 0.04) 0px 1px 3px, rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  /* 普通背景 */
+  --primary-background: rgba(255, 255, 255, 1);
+  /* hover灰色背景 */
+  --grey-background:#00000008;
+  /* hover字体颜色 */
+  --blue-color:rgb(10,132,255);
+  /* 禁止选中样式 */
+  --disable-color:#3c3c434d;
+
+}
+ul,li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  font-weight: 500;
+  color: rgba(39, 40, 39, 1);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+a:hover{
+  color:var(--blue-color) ;
+}
+
+body {
+  background-color: var(--main-bg-color);
+}

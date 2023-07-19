@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", //编译版本
+    "useDefineForClassFields": true, // 是否校验TypeScript数据类型
+    "module": "ESNext", //模块化选择commonjs..
+    "moduleResolution": "Node",
+    "strict": true,
+
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"], //指定库
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": false, //对js文件不编译
+    "checkJs": false, //检查js代码语法是否合法
+    "removeComments": false, //编译是否移除注释
+    // "strictNullChecks": true, //严格检查空值
+    // "noImplicitThis": true, //不允许不明确类型的this
+    "outDir": "./dist", //指定编译后的文件放在的目录
+    "baseUrl": ".", // 解析非相对模块的基地址，默认是当前目录
+    "paths": { "@/*": ["src/*"] } // 路径映射，相对于baseUrl
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vue.config.d.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
