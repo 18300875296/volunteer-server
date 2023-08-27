@@ -54,15 +54,13 @@
   </cookie-dialog>
 </template>
 <script setup lang="ts">
-import { ref, reactive, defineEmits, onBeforeUnmount } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, reactive, onBeforeUnmount } from 'vue';
 import CookieInput from './cookie-input/CookieInput.vue';
 import CookieForm from './cookie-form/CookieForm.vue';
 import CookieDialog from './cookie-dialog/CookieDialog.vue';
 import CookieButton from './cookie-button/CookieButton.vue';
 import CookieFormItem from './cookie-form/CookieFormItem.vue';
 import useUserStore from '../store/user';
-import { loginAPI } from '../api/user';
 
 const emits = defineEmits(['close']);
 const isSelect = ref(false);
@@ -162,28 +160,6 @@ const sendEmail = async (email: string) => {
     }
   }, 1000);
 };
-const router = useRouter();
-// 注册
-const register = async (form: any) => {
-  await userStore.register(form);
-  openDialog.value = false;
-  router.push('/home');
-  router.go(0);
-};
-// 登录 之后使用函数重载进行复用
-const login = async (form2: any) => {
-  try {
-    const res = await loginAPI(form2);
-    userStore.token = res.data.token;
-    userStore.auth = true;
-    openDialog.value = false;
-    // 重新获取用户信息
-    await userStore.getUserInfo();
-  } catch (error) {
-    console.log(`登录失败${error}`);
-  }
-};
-
 // 发送验证码
 const handleCode = () => {
   // 验证邮箱
@@ -194,22 +170,24 @@ const handleCode = () => {
   });
 };
 
-// 提交表单
+// 提交表单--注册
 const handleSubmit = () => {
-  formRef.value.validate((valid: boolean) => {
+  formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      register(Form);
+      openDialog.value = false;
+      await userStore.register(Form);
       alert('success');
     } else {
       alert('failure');
     }
   });
 };
-// 提交表单
+// 提交表单-登录
 const handleSubmit2 = () => {
-  formRef.value.validate((valid: boolean) => {
+  formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      login(Form2);
+      openDialog.value = false;
+      await userStore.login(Form2);
       // ElMessage({
       //   message: 'Congrats, this is a success message.',
       //   type: 'success',

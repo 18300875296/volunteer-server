@@ -10,24 +10,22 @@ import { RequestUser } from 'src/utils/app.interface';
 @Controller('menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
-  // 游客可以查看的路由
   @Public()
   @Get()
   // @Header('Cache-Control', 'max-age=3600')
   // @Header('Cache-Control', 'private')
-  @Roles(Role.Visitor, Role.User)
-  async getMenu(): Promise<MenuItem[]> {
-    return this.menuService.getRoutes();
+  // @Roles(Role.Visitor, Role.User)
+  async getMenu(@Req() req: RequestUser): Promise<MenuItem[]> {
+    if (req.user && req.user.role) {
+      return this.menuService.getRoleRoutes(req.user.role);
+    } else {
+      return this.menuService.getRoutes(); // 游客可以查看的路由
+    }
   }
 
-  @Roles(Role.TeamAdmin, Role.Admin, Role.SuperAdmin)
+  @Roles(Role.TeamAdmin, Role.Admin, Role.SuperAdmin, Role.User)
   @Get('/role')
   async getRoleMenu(@Req() req: RequestUser) {
     return this.menuService.getRoleRoutes(req.user.role);
   }
-  // @Roles()
-  // @Get('/admin')
-  // async getMenu_admin() {
-  //   return this.menuService.getAdminRoutes();
-  // }
 }

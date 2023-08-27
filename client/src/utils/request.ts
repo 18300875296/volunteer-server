@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosError } from 'axios';
 import { createApp } from 'vue';
 import useUserStore from '../store/user';
 import CookieLoading from '../components/cookie-loading/CookieLoading.vue';
@@ -17,9 +17,10 @@ const errorHandler = (error: AxiosError) => {
     switch (error.response.status) {
       case 401:
         // 登录过期错误处理
-        userStore.$reset();
+        // userStore.user = {}; // 初始化
         userStore.auth = false;
-        userStore.showLoginDialog = true;
+        userStore.token = '';
+        // userStore.showLoginDialog = true;
         break;
       case 500:
         // 服务器错误处理

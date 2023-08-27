@@ -4,18 +4,16 @@
     <!-- nav -->
     <nav id="nav-container">
       <div class="nav-content">
-        <cookie-menu class="cookie-menu" :default-active="defaultActive" :router="true" @select="handleSelect">
-          <template v-for="item in menuData">
-            <template v-if="!item.children">
-              <cookie-menu-item :key="item.url" :index="item.url">{{ item.name }} </cookie-menu-item>
-            </template>
+        <cookie-menu class="cookie-menu" :default-active="defaultActive" :router="true" @select="">
+          <template v-for="item in menuData" :key="item.path">
+            <cookie-menu-item :index="item.path">{{ item.meta.title }} </cookie-menu-item>
           </template>
         </cookie-menu>
         <div class="user-container">
-          <div v-if="!userStore.auth" class="login-container" @click="userStore.showLoginDialog = true">
+          <div v-if="!userStore.auth" class="login-container" @click="showLoginDialog = true">
             <span>登录</span>
           </div>
-          <div v-else class="avatar-container" @click="handleClickUserControl">
+          <div v-else class="avatar-container" @click="showUserDialog = !showUserDialog">
             <picture>
               <img :src="avatar" alt="" srcset="" class="img-container" />
             </picture>
@@ -31,64 +29,45 @@
     <footer class="footer"></footer>
   </div>
   <!--login-->
-  <cookie-login v-if="userStore.showLoginDialog" @close="userStore.showLoginDialog = false" />
+  <transition>
+    <cookie-login v-if="showLoginDialog" @close="showLoginDialog = false" />
+  </transition>
   <!-- user_control -->
-  <div v-if="openUserControl" class="user-control">
-    <div class="user-control_list">
-      <li class="list_item">收藏夹</li>
-      <li class="list_item" @click="router.push('/user/my_application')">我的团队</li>
-      <li class="list_item">个人资料</li>
-      <li class="list_item" @click="handleClickLogout">退出</li>
+  <transition>
+    <div v-if="showUserDialog" class="user-control">
+      <div class="user-control_list">
+        <li class="list_item">收藏夹</li>
+        <li class="list_item" @click="router.push('/user/my_application')">我的团队</li>
+        <li class="list_item">个人资料</li>
+        <li class="list_item" @click="logout">退出</li>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
-import { watch, ref, computed } from 'vue';
+import { watch, ref, computed, onBeforeUpdate, onMounted } from 'vue';
 import CookieMenu from './components/cookie-menu/CookieMenu.vue';
 import CookieMenuItem from './components/cookie-menu/CookieMenuItem.vue';
 import CookieLogin from './components/CookieLogin.vue';
 import useUserStore from './store/user';
-import { MenuItem } from './assets/interface';
-import { getAdminMenuAPI, getMenuAPI, getTeamMenuAPI } from './api/user';
+import useRouteStore from './store/route';
 
 const defaultActive = ref();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
+const routeStore = useRouteStore();
 const avatar = computed(() => userStore.user.avatar);
-const menuData = ref<MenuItem[]>([]);
-const openUserControl = ref<boolean>(false);
-const handleClickUserControl = () => {
-  openUserControl.value = !openUserControl.value;
-};
-const handleClickLogout = () => {
-  userStore.logout();
-  router.go(0);
-};
-// --------获取导航栏数据---------------
-const getMenu = async (): Promise<void> => {
-  try {
-    const res = await getMenuAPI();
-    menuData.value = res.data;
-  } catch (error) {
-    console.log(`获取导航栏数据失败${error}`);
-  }
-};
-getMenu();
+const showLoginDialog = ref(false);
+const showUserDialog = ref(false);
+const menuData = computed(() => routeStore.menus);
 
-const getRoleMenu = async () => {
-  if (userStore.user.role === 'team_admin') {
-    const res = await getTeamMenuAPI();
-    menuData.value.push(...res.data);
-  }
-  if (userStore.user.role === 'super_admin') {
-    const res = await getAdminMenuAPI();
-    menuData.value.push(...res.data);
-  }
+const logout = () => {
+  userStore.logout();
+  showUserDialog.value = false;
 };
-getRoleMenu();
 // 监听route.path的一级路由的变化
 // 为什么不监听login和register的路由，因为点击login会跳转到home下，并不能监听
 watch(
@@ -103,8 +82,22 @@ watch(
       }
     }
   },
-  // { immediate: true }
 );
+watch(
+  () => [userStore.token, route.name],
+  (tokenAndName, old) => {
+    if (!tokenAndName[0]) {
+      if (tokenAndName[1] === 'home') {
+        showLoginDialog.value = true;
+      }
+    }
+  },
+  { immediate: true },
+);
+
+onBeforeUpdate(() => {
+  console.log('刷新了');
+});
 </script>
 <style scoped>
 .app-wrapper {
@@ -214,5 +207,14 @@ watch(
   min-width: 320px;
   background: #1a1a1a;
   height: 400px;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

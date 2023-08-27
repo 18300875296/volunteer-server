@@ -1,9 +1,18 @@
-import { AxiosRequestConfig } from 'axios';
-
+enum Role {
+  user = 'user',
+  team_admin = 'team_admin',
+  admin = 'admin',
+}
+interface MetaOption {
+  roles: Role[];
+  invisible: boolean;
+}
 export interface MenuItem {
   name: string;
-  url: string;
-  children?: MenuItem[];
+  path: string;
+  children: MenuItem[] | [];
+  meta: MetaOption;
+  component: string;
 }
 export interface RegisterForm {
   email: string;

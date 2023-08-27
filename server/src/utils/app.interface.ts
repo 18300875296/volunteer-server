@@ -1,9 +1,11 @@
+import { Role } from 'src/logical/role/role.enum';
+
 interface TokenPreload {
   user_id: string;
   username: string;
   iat: number;
   exp: number;
-  role: string;
+  role: null | Role;
 }
 export interface RequestUser extends Request {
   user: TokenPreload;

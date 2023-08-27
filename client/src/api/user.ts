@@ -1,5 +1,5 @@
 import request from '../utils/request';
-import { CustomResponse, LoginForm, RegisterForm, ResData } from '../assets/interface';
+import { CustomResponse, RegisterForm } from '../assets/interface';
 
 export const getMenuAPI = (): Promise<any> =>
   request({
@@ -7,18 +7,11 @@ export const getMenuAPI = (): Promise<any> =>
     method: 'GET',
   });
 
-export const getTeamMenuAPI = (): Promise<any> =>
+export const getRoleMenuAPI = (): Promise<any> =>
   request({
-    url: '/api/menu/team',
+    url: '/api/menu/role',
     method: 'GET',
   });
-
-export const getAdminMenuAPI = (): Promise<any> =>
-  request({
-    url: '/api/menu/admin',
-    method: 'GET',
-  });
-
 export const sendCodeAPI = (email: string) =>
   request({
     method: 'POST',
@@ -26,7 +19,7 @@ export const sendCodeAPI = (email: string) =>
     data: { email },
   });
 
-export const registerAPI = (form: RegisterForm): Promise<ResData> =>
+export const registerAPI = (form: RegisterForm): Promise<any> =>
   request({
     method: 'POST',
     url: '/api/user/register',
@@ -43,7 +36,7 @@ export const loginAPI = (form: any) => {
   });
 };
 
-export const userInfoAPI = (): Promise<ResData> => {
+export const userInfoAPI = (): Promise<any> => {
   return request({
     method: 'GET',
     url: 'api/auth/getUserinfo',
