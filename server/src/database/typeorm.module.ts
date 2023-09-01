@@ -19,6 +19,8 @@ import { TeamMemberApplicationEntity } from 'src/logical/team-member-application
 import { SlideEntity } from 'src/logical/slide/entities/slide.entity';
 import { LogsEntity } from 'src/logical/logs/entities/log.entity';
 import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
+import { CommentChildrenEntity } from 'src/logical/comment/entities/comment.children.entity';
+import { CommentParentEntity } from 'src/logical/comment/entities/comment.parent.entity';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
         TeamMemberApplicationEntity,
         LogsEntity,
         ElegantEntity,
+        CommentChildrenEntity,
+        CommentParentEntity,
       ],
       // autoLoadEntities: true,
       // dropSchema: true,
