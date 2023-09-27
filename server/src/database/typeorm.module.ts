@@ -21,6 +21,8 @@ import { LogsEntity } from 'src/logical/logs/entities/log.entity';
 import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
 import { CommentChildrenEntity } from 'src/logical/comment/entities/comment.children.entity';
 import { CommentParentEntity } from 'src/logical/comment/entities/comment.parent.entity';
+import { MenuEntity } from 'src/logical/menu/entity/menu.entity';
+import { MenuTagEntity } from 'src/logical/menu_tag/entities/menu_tag.entity';
 
 @Module({
   imports: [
@@ -56,6 +58,8 @@ import { CommentParentEntity } from 'src/logical/comment/entities/comment.parent
         ElegantEntity,
         CommentChildrenEntity,
         CommentParentEntity,
+        MenuEntity,
+        MenuTagEntity,
       ],
       // autoLoadEntities: true,
       // dropSchema: true,

@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 import { UserEntity } from '../user/entities/user.entity';
 import { localAuthGuard } from './guard/auth.local.guard';
 import { Public } from './decorator/public.decorator';
-import { RequestUser } from '../../utils/app.interface';
+import { RequestUser } from '../../types/app.interface';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
 import { UserService } from '../user/user.service';

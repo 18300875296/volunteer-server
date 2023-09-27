@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
+    "plugins": [{"name": "typescript-plugin-css-modules"}],
     "target": "ESNext", //编译版本
     "useDefineForClassFields": true, // 是否校验TypeScript数据类型
     "module": "ESNext", //模块化选择commonjs..
     "moduleResolution": "Node",
     "strict": true,
-
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -16,6 +18,7 @@
     "allowJs": false, //对js文件不编译
     "checkJs": false, //检查js代码语法是否合法
     "removeComments": false, //编译是否移除注释
+    "allowImportingTsExtensions":true,
     // "strictNullChecks": true, //严格检查空值
     // "noImplicitThis": true, //不允许不明确类型的this
     "outDir": "./dist", //指定编译后的文件放在的目录

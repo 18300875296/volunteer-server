@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicationEntity } from './entities/application.entity';
 import { Repository } from 'typeorm';
 import { ApplicationQuery } from './application.interface';
-import { ActiveApplicationStatus } from 'src/utils/app.interface';
+import { ActiveApplicationStatus } from 'src/types/app.interface';
 
 @Injectable()
 export class ApplicationService {

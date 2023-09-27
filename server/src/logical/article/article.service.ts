@@ -22,7 +22,18 @@ export class ArticleService {
     @InjectRepository(CollectArticleEntity)
     private readonly collectRepository: Repository<CollectArticleEntity>,
   ) {}
-
+  // 查询文章作者
+  async getArticleAuthor(article_id: string): Promise<string | null> {
+    if (!(article_id && typeof article_id === 'string')) return null;
+    const article = await this.articleRepository.findOne({
+      where: { article_id },
+      relations: ['user'], // 加载关联的 user 信息
+    });
+    if (!article || !article.user) {
+      return null;
+    }
+    return article.user.user_id;
+  }
   // 验证文章是否有效
   validArticle(title: string, content: string, tags: string): boolean {
     if (!title) {
@@ -272,7 +283,10 @@ export class ArticleService {
           };
         }
       } catch (error) {
-        throw new HttpException('获取失败', HttpStatus.INTERNAL_SERVER_ERROR);
+        throw new HttpException(
+          `获取失败,${error}`,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
     };
     return { getDiffList };

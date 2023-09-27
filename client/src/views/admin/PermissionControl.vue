@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="permissionControl">
     <header class="header">
       <h1 class="header_item-title">系统权限</h1>
@@ -54,4 +54,4 @@ import CookieEmpty from '../../components/CookieEmpty/CookieEmpty.vue';
   transform: translateY(2px);
   cursor: pointer;
 }
-</style> -->
+</style>

@@ -12,9 +12,9 @@ export class RoleService {
     private readonly roleRepository: Repository<RoleEntity>,
   ) {}
 
-  async getRole(role: Role) {
+  async getRole(role: string): Promise<RoleEntity | null> {
     return await this.roleRepository.findOne({
-      where: { role_name: role },
+      where: { name: role },
     });
   }
 }

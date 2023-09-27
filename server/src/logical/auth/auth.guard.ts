@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
       });
       const user = await this.userService.validateUser(payload.username);
       const { role, ...fields } = user;
-      Object.assign(fields, { role: role.role_name });
+      Object.assign(fields, { role: role.name });
       request['user'] = fields;
     } catch {
       throw new HttpException('token失效', HttpStatus.UNAUTHORIZED);

@@ -13,7 +13,7 @@ import { TeamMemberApplicationService } from './team-member-application.service'
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
 import { CreateTeamMember } from '../team-member/dto/create-team-member.dto';
-import { CustomParam, RequestUser } from 'src/utils/app.interface';
+import { CustomParam, RequestUser } from 'src/types/app.interface';
 import { UserService } from '../user/user.service';
 import { TeamService } from '../team/team.service';
 

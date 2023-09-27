@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { UserEntity } from '../../user/entities/user.entity';
 import { ActiveEntity } from '../../active/entities/active.entity';
-import { ActiveApplicationStatus } from 'src/utils/app.interface';
+import { ActiveApplicationStatus } from 'src/types/app.interface';
 @Entity('application')
 export class ApplicationEntity {
   // 多个报名信息对应一个用户

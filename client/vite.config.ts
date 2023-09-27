@@ -1,8 +1,8 @@
+import * as path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { viteMockServe } from 'vite-plugin-mock';
-import * as path from 'path';
-
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -10,6 +10,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
@@ -23,6 +24,14 @@ export default defineConfig({
     }), // 是否开启开发环境),
   ],
   css: {
+    modules: {
+      localsConvention: 'camelCase',
+      scopeBehaviour: 'local',
+      generateScopedName(name) {
+        return name;
+      },
+      globalModulePaths: [],
+    },
     preprocessorOptions: {
       // scss: {
       //   additionalData: `$injectedColor: orange;`,
@@ -35,8 +44,14 @@ export default defineConfig({
   resolve: {
     //  设置别名
     alias: {
-      '@': path.resolve(__dirname, '/src'),
-      '@components': path.resolve(__dirname, './src/components'),
+      '@': path.resolve(__dirname, './src'), // 设置别名 @ 为项目根目录的 src 文件夹
+      '@components': path.resolve(__dirname, './src/components'), // 设置别名 @components 为 src/components 文件夹
+      '@views': path.resolve(__dirname, './src/views'), // 设置别名 @views 为 src/views 文件夹
+      '@api': path.resolve(__dirname, './src/api'),
+      '@store': path.resolve(__dirname, './src/store'),
+      '@router': path.resolve(__dirname, './src/router/index.ts'),
+      '@types': path.resolve(__dirname, './src/types'),
+      '@utils': path.resolve(__dirname, './src/utils'),
     },
   },
 
@@ -59,6 +74,7 @@ export default defineConfig({
   // },
   // },
   build: {
+    sourcemap: true,
     commonjsOptions: {
       esmExternals: true,
     },

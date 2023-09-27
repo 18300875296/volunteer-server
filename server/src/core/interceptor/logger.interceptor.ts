@@ -20,7 +20,7 @@ export class LoggerInterceptor implements NestInterceptor {
     const { user } = request;
     console.log(user);
     const username = user.username ? user.username : '匿名用户';
-    const role = user.role ? user.role.role_name || user.role : 'guest';
+    const role = user.role ? user.role.name || user.role : 'guest';
     const log = {
       username,
       role,

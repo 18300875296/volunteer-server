@@ -3,7 +3,7 @@ import { TeamMemberService } from './team-member.service';
 
 import { Role } from '../role/role.enum';
 import { Roles } from '../role/decorator/role.decorator';
-import { CustomParam, RequestUser } from 'src/utils/app.interface';
+import { CustomParam, RequestUser } from 'src/types/app.interface';
 import { UserService } from '../user/user.service';
 import { RoleService } from '../role/role.service';
 import { TeamEntity } from '../team/entities/team.entity';

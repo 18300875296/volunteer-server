@@ -1,46 +1,70 @@
 <template>
-  <div class="editor-content-container-inner">
-    <h1>{{ title }}</h1>
-    <div class="preview-content-container" v-html="content"></div>
+  <div id="content-container">
+    <section class="user_info_container">
+      <a href="#">
+        <picture>
+          <img :src="userStore.user.avatar" alt="" class="avatar" />
+        </picture>
+      </a>
+      <h3 class="title">{{ articleStore.createArticle.title }}</h3>
+      <button class="follow-btn"><span>关注TA</span></button>
+    </section>
+    <section class="article-content-container" v-html="content"></section>
   </div>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
 import useArticleStore from '../../store/article';
+import useUserStore from '@/store/user';
 
+const userStore = useUserStore();
 const articleStore = useArticleStore();
-// 解构赋值会导致pinia响应式失效使用计算属性
-const title = computed(() => articleStore.createArticle.title);
 const content = computed(() => articleStore.createArticle.content);
 </script>
 <style scoped>
-.preView-container-inner {
-  height: 100%;
+#editor-container {
   width: 100%;
-  position: absolute;
-  top: 0;
-  overflow: auto;
 }
-
-.preview-content-container {
+.user_info_container {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  height: 32px;
+  color: rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  object-fit: cover;
+}
+.title {
+  color: rgba(0, 0, 0, 1);
+  margin-right: 12px;
+  max-width: 540px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+}
+.article-content-container {
   line-height: 1.75;
   letter-spacing: 0.8px;
-  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.15) 3%, transparent 0),
-    linear-gradient(1turn, rgba(50, 0, 0, 0.15) 3%, transparent 0);
+  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.1) 3%, transparent 0),
+    linear-gradient(1turn, rgba(50, 0, 0, 0.1) 3%, transparent 0);
   background-size: 20px 20px;
   background-position: 50%;
   overflow-x: hidden;
   padding: 10px;
 }
 
-.preview-content-container p {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  word-break: break-word;
-}
-
-.preview-content-container img {
-  width: 270px;
-  height: 135px;
+.article-content-container >>> img {
+  width: 400px;
+  height: 230px;
 }
 </style>

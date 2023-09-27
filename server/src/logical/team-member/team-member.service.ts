@@ -64,7 +64,7 @@ export class TeamMemberService {
 
     return members.map((member) => {
       const { passport, role, ...fields } = member;
-      return Object.assign(fields, { role: role.role_name });
+      return Object.assign(fields, { role: role.name });
     });
   }
 }

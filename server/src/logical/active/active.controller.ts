@@ -25,7 +25,7 @@ import { UserEntity } from '../user/entities/user.entity';
 import { Public } from '../auth/decorator/public.decorator';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
-import { CustomParam, RequestUser } from 'src/utils/app.interface';
+import { CustomParam, RequestUser } from 'src/types/app.interface';
 import { TeamService } from '../team/team.service';
 import { UserService } from '../user/user.service';
 

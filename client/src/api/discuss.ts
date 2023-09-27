@@ -1,5 +1,7 @@
 import request from '../utils/request';
 import { Posts, ResData } from '../assets/interface';
+import { ArticleDetail } from '@/types/article';
+import { GlobalResponse } from '@/types/request';
 
 export const getNewestAPI = (page = 1, pagesize = 10): Promise<any> =>
   request({
@@ -60,14 +62,14 @@ export const deleteFileAPI = (filename: string): Promise<any> =>
     params: { filename },
   });
 
-export const sendPostsAPI = (posts: any): Promise<any> =>
+export const createArticleAPI = (posts: any): Promise<GlobalResponse<ArticleDetail>> =>
   request({
     method: 'POST',
     url: '/api/article/create',
     data: posts,
   });
 // 获得文章内容
-export const getPostsAPI = (article_id: string): Promise<any> =>
+export const getArticleContentAPI = (article_id: string): Promise<GlobalResponse<ArticleDetail>> =>
   request({
     method: 'GET',
     url: `/api/article/${article_id}`,

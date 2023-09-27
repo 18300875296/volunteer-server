@@ -4,9 +4,9 @@
     <!-- nav -->
     <nav id="nav-container">
       <div class="nav-content">
-        <cookie-menu class="cookie-menu" :default-active="defaultActive" :router="true" @select="">
+        <cookie-menu class="cookie-menu" :default-active="defaultActive" :router="true">
           <template v-for="item in menuData" :key="item.path">
-            <cookie-menu-item :index="item.path">{{ item.meta.title }} </cookie-menu-item>
+            <cookie-menu-item :index="item.path">{{ item.meta.displayName }} </cookie-menu-item>
           </template>
         </cookie-menu>
         <div class="user-container">
@@ -21,17 +21,16 @@
         </div>
       </div>
     </nav>
-    <!-- main -->
-    <div style="min-height: 1000px">
-      <router-view />
-    </div>
+    <Suspense>
+      <!-- main -->
+      <div id="main" style="min-height: 1000px">
+        <!-- <router-view :show-login="showLoginDialog" /> -->
+        <router-view />
+      </div>
+    </Suspense>
     <!-- footer-->
     <footer class="footer"></footer>
   </div>
-  <!--login-->
-  <transition>
-    <cookie-login v-if="showLoginDialog" @close="showLoginDialog = false" />
-  </transition>
   <!-- user_control -->
   <transition>
     <div v-if="showUserDialog" class="user-control">
@@ -47,10 +46,9 @@
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
-import { watch, ref, computed, onBeforeUpdate, onMounted } from 'vue';
+import { watch, ref, computed } from 'vue';
 import CookieMenu from './components/cookie-menu/CookieMenu.vue';
 import CookieMenuItem from './components/cookie-menu/CookieMenuItem.vue';
-import CookieLogin from './components/CookieLogin.vue';
 import useUserStore from './store/user';
 import useRouteStore from './store/route';
 
@@ -60,9 +58,9 @@ const router = useRouter();
 const route = useRoute();
 const routeStore = useRouteStore();
 const avatar = computed(() => userStore.user.avatar);
-const showLoginDialog = ref(false);
 const showUserDialog = ref(false);
-const menuData = computed(() => routeStore.menus);
+const showLoginDialog = ref(false); // 控制用户点击登录按钮显示登录弹框
+const menuData = computed(() => routeStore.firstMenus);
 
 const logout = () => {
   userStore.logout();
@@ -83,21 +81,6 @@ watch(
     }
   },
 );
-watch(
-  () => [userStore.token, route.name],
-  (tokenAndName, old) => {
-    if (!tokenAndName[0]) {
-      if (tokenAndName[1] === 'home') {
-        showLoginDialog.value = true;
-      }
-    }
-  },
-  { immediate: true },
-);
-
-onBeforeUpdate(() => {
-  console.log('刷新了');
-});
 </script>
 <style scoped>
 .app-wrapper {

@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
+import { defineEmits } from 'vue';
 
 const props = defineProps({
   type: {
@@ -27,6 +27,8 @@ const props = defineProps({
     default: '',
   },
 });
+// const emits = defineEmits(['click']);
+// const handleClick = () => emits('click');
 </script>
 
 <style scoped>
@@ -48,6 +50,7 @@ const props = defineProps({
   padding: 6px 12px;
   min-width: 80px;
   border-radius: 5px;
+  flex: 0;
 }
 /* .cookie-button:hover {
 } */

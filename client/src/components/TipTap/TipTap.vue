@@ -1,9 +1,9 @@
 <template>
   <div id="editor-container">
     <div class="title-container">
-      <input v-model="title" class="title-inp" placeholder="请输入标题..." type="text" @input="handleInput" />
+      <CookieInput v-model="title" class="title-inp" placeholder="请输入标题..." type="text" :is-border="false" />
       <div class="button-group-container">
-        <span class="checkbox-container">
+        <!-- <span class="checkbox-container">
           <svg class="icon" viewBox="0 0 1024 1024" width="16" height="16">
             <path
               d="M768 128 256 128C185.6 128 128 185.6 128 256l0 512c0 70.4 57.6 128 128 128l512 0c70.4 0 128-57.6 128-128L896 256C896 185.6 838.4 128 768 128zM832 768c0 35.2-28.8 64-64 64L256 832c-35.2 0-64-28.8-64-64L192 256c0-35.2 28.8-64 64-64l512 0c35.2 0 64 28.8 64 64L832 768z"
@@ -11,10 +11,15 @@
             ></path>
           </svg>
           匿名
-        </span>
+        </span> -->
         <cookie-button type="delete" style="margin-right: 18px" @click="handleCancel">取消</cookie-button>
         <cookie-button type="submit" @click="handleSubmit">发布</cookie-button>
       </div>
+    </div>
+    <div class="tag-container">
+      <CookieSelect>
+        <CookieOption></CookieOption>
+      </CookieSelect>
     </div>
     <div class="tag-container">
       <MenuBar :editor="editor" />
@@ -24,7 +29,7 @@
         <editor-content :editor="editor" class="editor-content-container-inner"></editor-content>
       </div>
       <div class="preView-container-outer">
-        <preview></preview>
+        <preview />
       </div>
     </div>
   </div>
@@ -42,14 +47,15 @@ import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import { defineEmits, onBeforeUnmount, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import CookieButton from '../cookie-button/CookieButton.vue';
 import useArticleStore from '../../store/article';
 import MenuBar from './MenuBar.vue';
 import preview from './preview.vue';
+import { CookieInput } from '@/components/cookie-input/CookieInput';
+import CookieSelect from '@/components/cookie-select/CookieSelect.vue';
+import CookieOption from '@/components/cookie-select/CookieOption.vue';
 
-const emits = defineEmits(['handleClose', 'submit']);
-const router = useRouter();
+const emits = defineEmits(['onClose', 'onSubmit']);
 const title = ref();
 const articleStore = useArticleStore();
 
@@ -123,15 +129,15 @@ const observerConfig = { childList: true };
 observer.observe(tipTapRoot, observerConfig);
 
 const handleCancel = () => {
-  emits('handleClose');
+  emits('onClose');
 };
 const handleSubmit = async () => {
   // 校验数据
-  emits('submit');
+  emits('onSubmit');
 };
-const handleInput = () => {
-  articleStore.createArticle.title = title.value;
-};
+// const handleInput = () => {
+//   articleStore.createArticle.title = title.value;
+// };
 
 // onMounted(() => {
 //   const articleStore = useArticleStore()
@@ -149,7 +155,8 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
-.title-container {
+.title-container,
+.tag-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;

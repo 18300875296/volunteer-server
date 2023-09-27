@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.visible" class="dialog-bg">
+  <div v-if="props.showDialog" class="dialog-bg">
     <Transition name="fade" mode="out-in">
       <div class="dialog-container">
         <div class="dialog-content">
@@ -23,23 +23,22 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, onBeforeUnmount } from 'vue';
+// import { onBeforeUnmount } from 'vue';
 
 const props = defineProps({
-  visible: {
+  showDialog: {
     type: Boolean,
     default: false,
   },
 });
 
-const emits = defineEmits(['close', 'destroy']);
-const handleClose = () => {
-  emits('close');
-};
-onBeforeUnmount(() => {
-  // 组件销毁时的逻辑
-  console.log('组件销毁');
-});
+const emits = defineEmits(['onClose', 'destroy']);
+const handleClose = () => emits('onClose'); // 触发外部事件
+
+// onBeforeUnmount(() => {
+//   // 组件销毁时的逻辑
+//   console.log('组件销毁');
+// });
 </script>
 
 <style scoped>

@@ -1,0 +1,17 @@
+.banner_select_item {
+  flex: 1 1 auto;
+  display: flex;
+  padding: 12px 0px 0px 16px;
+  flex-direction: column;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(rgb(56, 152, 255), rgb(20, 125, 255));
+}
+.banner_select_item a {
+  height: 100%;
+  color: rgba(255, 255, 255, 1);
+}
+.banner_active {
+  background: linear-gradient(rgb(67, 212, 117), rgb(43, 213, 93));
+}

@@ -17,7 +17,7 @@ import { AuthService } from '../auth/auth.service';
 import { Public } from '../auth/decorator/public.decorator';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
-import { RequestUser, UserStatus } from 'src/utils/app.interface';
+import { RequestUser, UserStatus } from 'src/types/app.interface';
 import { EmailService } from '../email/email.service';
 import { RoleService } from '../role/role.service';
 import { LoggerInterceptor } from 'src/core/interceptor/logger.interceptor';

@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row nowrap;
+  margin: 0 auto;
+}
+.header span {
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(38, 38, 38, 0.75);
+}
+.header span:hover {
+  color: rgba(0, 122, 255, 0.75);
+}
+.isSelect {
+  border-bottom: 2px solid rgba(0, 122, 255, 1);
+  border-radius: 0.5px;
+  transition: border 0.2s;
+}
+.gap_line {
+  margin: 0 8px;
+  height: 20px !important;
+  width: 1px;
+  background-color: rgba(0, 10, 32, 0.08);
+}
+.register-button {
+  margin: 0 auto;
+}

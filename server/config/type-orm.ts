@@ -12,7 +12,7 @@ const productConfig = {
     type: 'mysql',
     database: 'app_service',
     host: '127.0.0.1',
-    port: 3306,
+    port: 3307,
     user: 'root',
     password: '123456zxw',
     connectionLimit: 10, //连接限制

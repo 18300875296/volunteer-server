@@ -14,7 +14,7 @@ import { TeamApplicationService } from './team-application.service';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
 import { CreateTeam } from '../team/dto/create.team.dto';
-import { CustomParam, RequestUser } from 'src/utils/app.interface';
+import { CustomParam, RequestUser } from 'src/types/app.interface';
 import { UserService } from '../user/user.service';
 import { TeamStatus } from '../team/team.interface';
 

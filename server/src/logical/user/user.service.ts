@@ -4,7 +4,7 @@ import { UserEntity } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleEntity } from '../role/entities/role.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserStatus } from 'src/utils/app.interface';
+import { UserStatus } from 'src/types/app.interface';
 
 @Injectable()
 export class UserService {
@@ -59,7 +59,7 @@ export class UserService {
       return await this.userRepository
         .createQueryBuilder('user')
         .where('username=:username', { username })
-        .leftJoinAndSelect('user.role', 'role')
+        .leftJoinAndSelect('user.role', 'role.name')
         .getOne();
     } catch (error) {
       throw new HttpException(
@@ -83,7 +83,7 @@ export class UserService {
           'role',
         ])
         .getOne();
-    return { user_id, username, avatar, nickname, role: role.role_name };
+    return { user_id, username, avatar, nickname, role: role.name };
   }
   // 获取所有用户信息(过滤敏感信息)--管理员
   async getUsers() {
@@ -93,7 +93,7 @@ export class UserService {
       .select([
         'user.user_id',
         'user.avatar',
-        'role.role_name',
+        'role.name',
         'user.status',
         'user.username',
         'user.create_at',
@@ -103,7 +103,7 @@ export class UserService {
       .getMany();
     return users.map((user) => {
       const { role, ...fields } = user;
-      return Object.assign(fields, { role: role.role_name });
+      return Object.assign(fields, { role: role.name });
     });
   }
   // 改变用户的状态

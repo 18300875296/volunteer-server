@@ -1,5 +1,7 @@
 import request from '../utils/request';
 import { CustomResponse, RegisterForm } from '../assets/interface';
+import { GlobalResponse } from '@/types/request';
+import { Userinfo } from '@/types/user';
 
 export const getMenuAPI = (): Promise<any> =>
   request({
@@ -36,7 +38,7 @@ export const loginAPI = (form: any) => {
   });
 };
 
-export const userInfoAPI = (): Promise<any> => {
+export const userInfoAPI = (): Promise<GlobalResponse<Userinfo>> => {
   return request({
     method: 'GET',
     url: 'api/auth/getUserinfo',

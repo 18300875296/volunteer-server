@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { UserEntity } from '../../user/entities/user.entity';
-import { TeamStatus } from 'src/utils/app.interface';
+import { TeamStatus } from 'src/types/app.interface';
 import { ActiveEntity } from 'src/logical/active/entities/active.entity';
 import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
 

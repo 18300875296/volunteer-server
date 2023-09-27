@@ -15,7 +15,7 @@ import { CreateApplicationDto } from './dto/create-application.dto';
 // import { UpdateApplicationDto } from './dto/update-application.dto';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
-import { ActiveApplicationStatus, RequestUser } from 'src/utils/app.interface';
+import { ActiveApplicationStatus, RequestUser } from 'src/types/app.interface';
 import { UserService } from '../user/user.service';
 import { ActiveService } from '../active/active.service';
 import { Public } from '../auth/decorator/public.decorator';

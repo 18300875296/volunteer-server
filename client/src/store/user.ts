@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { registerAPI, userInfoAPI, sendCodeAPI, loginAPI, getRoleMenuAPI } from '../api/user';
+import { registerAPI, userInfoAPI, sendCodeAPI, loginAPI } from '../api/user';
 import { MenuItem } from '@/assets/interface';
 import { router } from '../router/index';
 import useRouteStore from './route';
@@ -15,24 +15,21 @@ const User = {
 const useUserStore = defineStore('userStore', {
   state: () => ({
     isLoading: ref(false),
-    token: ref(''),
+    token: ref<string | undefined>(),
     user: ref(User),
     routes: ref<MenuItem[]>([]),
     auth: ref(false),
   }),
   // 相当于计算属性
   getters: {
-    // auth: (state) => !!state.token,
+    showLoginDialog: (state) => !state.token, // 用户没有用户信息时显示登录弹框
   },
 
   actions: {
-    // 获取token
-    getToken() {
-      return !!this.token;
-    },
-    // 判断token
+    // 验证token
     async validToken(): Promise<boolean> {
       try {
+        if (!this.token) return false;
         const res = await userInfoAPI();
         return res.data.status !== 401;
       } catch (error) {
@@ -62,17 +59,12 @@ const useUserStore = defineStore('userStore', {
         console.log(error);
       }
     },
-    async login(form: any) {
+    async login(form: any): Promise<void> {
       try {
-        const res = await loginAPI(form);
-        this.token = res.data.token;
+        const { data } = await loginAPI(form);
+        this.token = data.token;
         this.auth = true;
         await this.getUserInfo(); // 重新获取用户信息
-        // const RoleResData = await getRoleMenuAPI();
-        // if (RoleResData.data) {
-        // this.routes.push(...RoleResData.data);
-        // addRoute(RoleResData.data);
-        // }
       } catch (error) {
         console.log(`登录失败${error}`);
       }
@@ -80,14 +72,12 @@ const useUserStore = defineStore('userStore', {
     // 获取用户信息
     async getUserInfo() {
       try {
-        const res = await userInfoAPI();
-        const routeStore = useRouteStore();
-        await routeStore.getPermissionRoute();
-        if (res) {
-          Object.assign(this.user, { ...res.data });
-        }
+        const { code, status, data } = await userInfoAPI(); // 获取用户信息
+        if (code !== 0 || status !== 200) console.log('获取用户数据失败');
+        Object.assign(this.user, { ...data });
+        await useRouteStore().getRoutes(true); // 获取权限路由
       } catch (error) {
-        console.log(`获取用户信息错误${error}`);
+        return error;
       }
     },
     logout() {
@@ -95,12 +85,9 @@ const useUserStore = defineStore('userStore', {
       this.user = User; // 初始化
       this.auth = false;
       const routeStore = useRouteStore();
-      routeStore.menus = [];
-      routeStore.permissionRoutes = [];
-      routeStore.routes = [];
-      routeStore.getBaseRoute();
-      console.log(router.getRoutes());
-      router.push('/home');
+      routeStore.removePermissionRoutes(routeStore.routes); // 删除权限路由
+      console.log(routeStore.menus, routeStore.routes, router.getRoutes());
+      router.push('/home'); // 跳转又会触发守卫获取普通路由
     },
   },
   persist: true,

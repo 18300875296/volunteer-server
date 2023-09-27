@@ -29,7 +29,7 @@ export class TeamMemberEntity {
 
   // 多个成员对应一个角色
   @ManyToOne(() => RoleEntity)
-  @JoinColumn({ referencedColumnName: 'role_name' })
+  @JoinColumn({ referencedColumnName: 'name' })
   role: RoleEntity;
 
   @PrimaryGeneratedColumn('uuid')

@@ -11,9 +11,14 @@ import {
 import { UserEntity } from '../../user/entities/user.entity';
 import { PermissionEntity } from '../../permission/entities/permission.entity';
 import { TeamMemberEntity } from 'src/logical/team-member/entities/team-member.entity';
+// import { MenuEntity } from 'src/logical/menu/entity/menu.entity';
 
 @Entity('role')
 export class RoleEntity {
+  // 关联菜单栏
+  // @ManyToMany(() => MenuEntity, (menu) => menu.roles)
+  // menus: MenuEntity[];
+
   @ManyToMany(() => PermissionEntity)
   @JoinTable()
   permissions: PermissionEntity[];
@@ -29,16 +34,16 @@ export class RoleEntity {
   @Column({
     type: 'varchar',
     unique: true,
-    comment: '角色名称',
+    comment: '角色内部名',
     nullable: false,
   })
-  role_name: string;
+  name: string;
 
   @Column({
     type: 'varchar',
-    comment: '角色描述',
+    comment: '角色显示名',
   })
-  description: string;
+  displayName: string;
 
   @CreateDateColumn({
     type: 'timestamp',

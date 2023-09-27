@@ -1,0 +1,110 @@
+.article_item_container {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  padding: 16px 8px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.article_item-cover {
+  width: 200px;
+  height: 120px;
+  margin-right: 16px;
+  flex: 0 0 auto;
+  position: relative;
+}
+/* .article_item-cover img {
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 13px;
+} */
+.article_item-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.article__item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+}
+.title_item-content {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.title__item-span {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  color: rgba(38, 38, 38, 0.75);
+  margin-right: 5px;
+
+}
+.title__item-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 22px;
+  transition: all 0.3s;
+  display: block;
+}
+.title_item-time {
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(223, 223, 223, 1);
+  flex: 0 0 auto;
+  margin-left: 30px;
+}
+.article__item-content {
+  margin: 12px 0;
+  line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  text-align: left;
+  color: rgba(60, 60, 67, 0.6);
+}
+.article__item-tags {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+.tag_item {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 161, 22, 1);
+  background: rgba(255, 161, 22, 0.15);
+  height: 24px;
+  line-height: 20px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-right: 10px;
+  white-space: nowrap;
+  max-width: 120px;
+  display: flex;
+  align-items: center;
+}
+.tag_item > svg {
+  margin-right: 5px;
+}
+.article_item-link{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

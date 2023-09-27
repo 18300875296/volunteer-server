@@ -22,6 +22,7 @@ import { TeamMemberApplicationModule } from './logical/team-member-application/t
 import { LogsModule } from './logical/logs/logs.module';
 import { ElegantModule } from './logical/elegant/elegant.module';
 import { CommentModule } from './logical/comment/comment.module';
+import { MenuTagModule } from './logical/menu_tag/menu_tag.module';
 @Module({
   imports: [
     typeormModule,
@@ -48,6 +49,7 @@ import { CommentModule } from './logical/comment/comment.module';
     MenuModule,
     CollectModule,
     ApplicationModule,
+    MenuTagModule,
   ],
 })
 export class AppModule {}

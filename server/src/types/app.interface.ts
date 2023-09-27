@@ -7,6 +7,9 @@ interface TokenPreload {
   exp: number;
   role: null | Role;
 }
+export interface ResponseData<T> {
+  data: T;
+}
 export interface RequestUser extends Request {
   user: TokenPreload;
 }

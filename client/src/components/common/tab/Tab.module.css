@@ -1,0 +1,15 @@
+.tab_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 32px;
+  font-weight: 500;
+  font-size: 16px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.4s ease 0s;
+}
+.tab_active {
+  transition: all 0.4s ease 0s;
+  color: rgba(45, 145, 255, 1);
+  border-bottom: 2px solid rgba(45, 145, 255, 1);
+}

@@ -7,6 +7,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
+import { ResponseData } from 'src/types/app.interface';
 
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
@@ -14,10 +15,11 @@ export class TransformInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         const status = context.switchToHttp().getResponse().statusCode;
+
         return {
           status,
           code: 0,
-          data: data.data,
+          data: data.data || data,
           message: 'success',
         };
       }),

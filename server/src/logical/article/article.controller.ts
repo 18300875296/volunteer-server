@@ -19,7 +19,7 @@ import { CollectService } from '../collect/collect.service';
 import { Public } from '../auth/decorator/public.decorator';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
-import { RequestUser } from 'src/utils/app.interface';
+import { RequestUser } from 'src/types/app.interface';
 @Controller('article')
 export class ArticleController {
   constructor(

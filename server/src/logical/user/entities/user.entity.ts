@@ -20,7 +20,7 @@ import { ActiveEntity } from '../../active/entities/active.entity';
 import { RoleEntity } from '../../role/entities/role.entity';
 import { ApplicationEntity } from '../../application/entities/application.entity';
 import { TeamMemberEntity } from 'src/logical/team-member/entities/team-member.entity';
-import { UserStatus } from 'src/utils/app.interface';
+import { UserStatus } from 'src/types/app.interface';
 import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
 
 @Entity('user') //数据表的名字
@@ -42,7 +42,7 @@ export class UserEntity {
   applications: ApplicationEntity[];
   // 多个用户对应一个角色
   @ManyToOne(() => RoleEntity)
-  @JoinColumn({ referencedColumnName: 'role_name' })
+  @JoinColumn({ referencedColumnName: 'name' })
   role: RoleEntity;
 
   //一个用户对应多个点赞
