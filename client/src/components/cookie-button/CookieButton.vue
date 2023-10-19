@@ -10,6 +10,7 @@
       delete: props.type === 'delete',
     }"
   >
+    {{ props.label }}
     <slot></slot>
   </button>
 </template>
@@ -23,6 +24,10 @@ const props = defineProps({
     default: 'button',
   },
   background: {
+    type: String,
+    default: '',
+  },
+  label: {
     type: String,
     default: '',
   },

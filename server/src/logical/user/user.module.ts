@@ -8,7 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../../../config/constants';
 import { EmailModule } from '../email/email.module';
 import { RoleModule } from '../role/role.module';
-import { LogsModule } from '../logs/logs.module';
+// import { LogsModule } from '../logs/logs.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { LogsModule } from '../logs/logs.module';
     }),
     EmailModule,
     RoleModule,
-    LogsModule,
+    // LogsModule,
   ],
   controllers: [UserController],
   providers: [UserService, AuthService],

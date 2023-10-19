@@ -1,3 +1,13 @@
+<!--
+ * @Author: 18300875296 1453622610@qq.com
+ * @Date: 2023-09-29 16:32:42
+ * @LastEditors: 18300875296 1453622610@qq.com
+ * @LastEditTime: 2023-10-09 23:42:03
+ * @FilePath: \Testc:\Admin\GitHub\volunteer-server\client\src\views\article\Article.vue
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+-->
 <template>
   <div class="article_container">
     <main class="article_content">
@@ -8,11 +18,7 @@
     <Aside />
   </div>
   <Teleport v-if="openEditor" to="#main">
-    <tip-tap
-      class="RichText_container"
-      @on-close="useArticleStore().openArticleEditor = false"
-      @on-submit="handleSubmit"
-    />
+    <tip-tap class="RichText_container" />
   </Teleport>
 </template>
 
@@ -65,6 +71,7 @@ const handleSubmit = async () => {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 2px 8px rgba(0, 0, 0, 0.4);
   background: rgba(255, 255, 255, 1);
   height: 100vh;
+  z-index: 9999;
   position: fixed;
   left: 0;
   bottom: 0;

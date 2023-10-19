@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
@@ -21,6 +20,7 @@ import { TeamMemberService } from '../team-member/team-member.service';
 import { TeamApplicationService } from '../team-application/team-application.service';
 import { UpdateTeam } from './dto/update.team.dto';
 import { Public } from '../auth/decorator/public.decorator';
+import { TeamEntity } from './entities/team.entity';
 
 @Controller('team')
 export class TeamController {
@@ -31,6 +31,16 @@ export class TeamController {
     private readonly teamMemberService: TeamMemberService,
     private readonly teamApplicationService: TeamApplicationService,
   ) {}
+  @Public()
+  @Get('')
+  async getTeams(
+    @Query('page') page: number,
+    @Query('pagesize') pagesize: number,
+    @Query('fields') fields: Partial<TeamEntity>,
+    @Query('orderKey') orderKey: keyof TeamEntity,
+  ) {
+    return await this.teamService.getTeams(+page, +pagesize, fields, orderKey);
+  }
   // 创建一个团体(管理员)
   @Roles(Role.Admin, Role.SuperAdmin)
   @Get('create/:team_application_id')
@@ -77,12 +87,12 @@ export class TeamController {
   }
 
   // 获取管理员所管理的所有团队
-  @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin)
-  @Get('/my_teams')
-  async getTeamAll(@Req() req: RequestUser) {
-    const { user_id } = req.user;
-    return await this.teamService.getTeams(user_id);
-  }
+  // @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin)
+  // @Get('/my_teams')
+  // async getTeamAll(@Req() req: RequestUser) {
+  //   const { user_id } = req.user;
+  //   return await this.teamService.getTeams(user_id);
+  // }
   // 管理员查看团队信息
   @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin)
   @Get('my_teams/:team_id')

@@ -66,12 +66,7 @@ watch(
     input.value.handleValidate(); // 检验input框数据
   },
 );
-const addItem = (item: any) => {
-  options.set(item.props.label, item);
-};
-const removeItem = (item: any) => {
-  options.delete(item.props.label);
-};
+
 const selectItem = (item: any) => {
   emits('update:modelValue', item.props.label);
   options.forEach((option) => {

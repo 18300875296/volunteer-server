@@ -1,5 +1,6 @@
 <template>
   <section class="article_list_container">
+    {{ menu }}-{{ tab }}
     <template v-for="articleData of currentData" :key="articleData.article_id">
       <ArticleRow :article="articleData" />
     </template>

@@ -5,13 +5,34 @@ import { Repository } from 'typeorm';
 import { CreateTeam } from './dto/create.team.dto';
 import { UserEntity } from '../user/entities/user.entity';
 import { UpdateTeam } from './dto/update.team.dto';
+import {
+  paginate,
+  Pagination,
+  generateQuery,
+} from '../../utils/pagination.util';
 @Injectable()
 export class TeamService {
   constructor(
     @InjectRepository(TeamEntity)
     private readonly teamRepository: Repository<TeamEntity>,
   ) {}
-
+  async getTeams(
+    page: number,
+    pageSize: number,
+    fields: Partial<TeamEntity>,
+    orderKey: keyof TeamEntity,
+  ): Promise<Pagination<TeamEntity>> {
+    const query = generateQuery(fields);
+    const teams = await paginate(
+      this.teamRepository,
+      page,
+      pageSize,
+      query,
+      orderKey,
+      'DESC',
+    );
+    return teams;
+  }
   // 创建一个团队(已审核)
   async createTeam(team: CreateTeam, admin: UserEntity) {
     const teamEntity = new TeamEntity();
@@ -66,24 +87,24 @@ export class TeamService {
       .getOne();
   }
   // 获取管理员所有团队的信息
-  async getTeams(user_id: string) {
-    return await this.teamRepository
-      .createQueryBuilder('team')
-      .leftJoinAndSelect('team.admin', 'admin')
-      .where('admin.user_id=:user_id', { user_id })
-      .select([
-        'team.team_id',
-        'team.name',
-        'team.manager_name',
-        'team.manager_passport',
-        'team.manager_phone',
-        'team.manager_email',
-        'team.address',
-        'team.description',
-        'team.create_time',
-      ])
-      .getMany();
-  }
+  // async getTeams(user_id: string) {
+  //   return await this.teamRepository
+  //     .createQueryBuilder('team')
+  //     .leftJoinAndSelect('team.admin', 'admin')
+  //     .where('admin.user_id=:user_id', { user_id })
+  //     .select([
+  //       'team.team_id',
+  //       'team.name',
+  //       'team.manager_name',
+  //       'team.manager_passport',
+  //       'team.manager_phone',
+  //       'team.manager_email',
+  //       'team.address',
+  //       'team.description',
+  //       'team.create_time',
+  //     ])
+  //     .getMany();
+  // }
   // 获取所有的团队
   async getAllTeams() {
     return await this.teamRepository.find();

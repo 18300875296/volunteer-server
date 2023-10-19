@@ -17,11 +17,11 @@ import { RequestUser } from '../../types/app.interface';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
 import { UserService } from '../user/user.service';
-import { Logger } from '../logs/logs.decorator';
-import { LoggerInterceptor } from 'src/core/interceptor/logger.interceptor';
+// import { Logger } from '../logs/logs.decorator';
+// import { LoggerInterceptor } from 'src/core/interceptor/logger.interceptor';
 
 @Controller('auth')
-@UseInterceptors(LoggerInterceptor)
+// @UseInterceptors(LoggerInterceptor)
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -30,7 +30,7 @@ export class AuthController {
 
   @Public()
   @UseGuards(localAuthGuard) //守卫验证用户密码是否正确
-  @Logger('用户登录')
+  // @Logger('用户登录')
   @Post('login') //登录路由
   async login(@Body() user: Partial<UserEntity>): Promise<any> {
     const userEntity = await this.userService.validateUser(user.username);
@@ -38,7 +38,7 @@ export class AuthController {
   }
 
   @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin, Role.User)
-  @Logger('获取用户信息')
+  // @Logger('获取用户信息')
   @Get('getUserinfo') //获取用户信息
   async getUserinfo(@Req() req: RequestUser) {
     const { username } = req.user;

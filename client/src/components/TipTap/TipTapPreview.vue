@@ -1,25 +1,15 @@
 <template>
   <div id="content-container">
-    <section class="user_info_container">
-      <a href="#">
-        <picture>
-          <img :src="userStore.user.avatar" alt="" class="avatar" />
-        </picture>
-      </a>
-      <h3 class="title">{{ articleStore.createArticle.title }}</h3>
-      <button class="follow-btn"><span>关注TA</span></button>
-    </section>
-    <section class="article-content-container" v-html="content"></section>
+    <section class="article-content-container">{{ props.content }}</section>
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
-import useArticleStore from '../../store/article';
-import useUserStore from '@/store/user';
-
-const userStore = useUserStore();
-const articleStore = useArticleStore();
-const content = computed(() => articleStore.createArticle.content);
+const props = defineProps({
+  content: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 <style scoped>
 #editor-container {

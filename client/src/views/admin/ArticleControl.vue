@@ -151,3 +151,4 @@ onBeforeMount(async () => {
   justify-content: space-between;
 }
 </style>
+../../api/article

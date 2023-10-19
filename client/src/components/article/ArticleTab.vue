@@ -1,3 +1,13 @@
+<!--
+ * @Author: 18300875296 1453622610@qq.com
+ * @Date: 2023-09-29 16:32:41
+ * @LastEditors: 18300875296 1453622610@qq.com
+ * @LastEditTime: 2023-10-09 23:43:19
+ * @FilePath: \Testc:\Admin\GitHub\volunteer-server\client\src\components\article\ArticleTab.vue
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+-->
 <template>
   <section class="article_tab_container">
     <div v-if="currentMenuTabs.length" class="tab_container">

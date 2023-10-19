@@ -210,3 +210,4 @@ onBeforeMount(async () => {
   align-items: center;
 }
 </style>
+../api/article

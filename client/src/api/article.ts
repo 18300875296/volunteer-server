@@ -1,8 +1,13 @@
 import request from '../utils/request';
 import { Posts, ResData } from '../assets/interface';
-import { ArticleDetail } from '@/types/article';
+import { ArticleCategory, ArticleDetail } from '@/types/article';
 import { GlobalResponse } from '@/types/request';
 
+export const getArticleCategoriesAPI = (): Promise<GlobalResponse<ArticleCategory[]>> =>
+  request({
+    url: '/api/article/categories',
+    method: 'GET',
+  });
 export const getNewestAPI = (page = 1, pagesize = 10): Promise<any> =>
   request({
     url: '/api/article/newest',
@@ -62,7 +67,7 @@ export const deleteFileAPI = (filename: string): Promise<any> =>
     params: { filename },
   });
 
-export const createArticleAPI = (posts: any): Promise<GlobalResponse<ArticleDetail>> =>
+export const createArticleAPI = (posts: any): Promise<GlobalResponse<{ article_id: string }>> =>
   request({
     method: 'POST',
     url: '/api/article/create',

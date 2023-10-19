@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import useRouteStore from './route';
-import { ArticleData, ArticleDetail, ArticleHeader } from '@/types/article';
+import { ArticleCategory, ArticleData, ArticleDetail, ArticleHeader } from '@/types/article';
 import {
   createArticleAPI,
   uploadFileAPI,
@@ -14,7 +14,8 @@ import {
   deleteCollectAPI,
   putCollectAPI,
   getHottestAPI,
-} from '../api/discuss';
+  getArticleCategoriesAPI,
+} from '../api/article';
 import { Article } from '@/assets/interface';
 import { MenuItem, MenuTab } from '@/types/menu';
 import { flatData } from '@/utils/flatData';
@@ -34,12 +35,6 @@ const useArticleStore = defineStore('articleStore', {
     currentMenuName: ref<string>(''), // 当前栏目的名称
     currentMenuTabName: ref<string | undefined>(''), // 当前栏目下菜单栏名称
     openArticleEditor: ref(false), // 是否打开文章编辑器
-    createArticle: ref<Article>({
-      title: '',
-      content: '',
-      images: [],
-      tags: ['志愿服务', '社区志愿', '公益性志愿'],
-    }),
   }),
   // 相当于计算属性
   getters: {},

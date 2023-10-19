@@ -20,98 +20,121 @@ import { Public } from '../auth/decorator/public.decorator';
 import { Roles } from '../role/decorator/role.decorator';
 import { Role } from '../role/role.enum';
 import { RequestUser } from 'src/types/app.interface';
+import { ArticleCategoryEntity } from './entities/articleCategory.entity';
+import { ArticleCategoryService } from './articleCategory.service';
+import { ArticleEntity } from './entities/article.entity';
 @Controller('article')
 export class ArticleController {
   constructor(
     private articleService: ArticleService,
     private likeService: LikeService,
     private collectService: CollectService,
+    private ArticleCategoryService: ArticleCategoryService,
   ) {}
-
+  @Public()
+  @Get('')
+  async getArticles(
+    @Query('page') page: number,
+    @Query('pagesize') pagesize: number,
+    @Query('fields') fields: Partial<ArticleEntity>,
+    @Query('orderKey') orderKey: keyof ArticleEntity,
+  ) {
+    return await this.articleService.getArticles(
+      +page,
+      +pagesize,
+      fields,
+      orderKey,
+    );
+  }
   /*******************************获取文章列表*************************************/
   // 获取全部的文章数据(管理员)
-  @Roles(Role.Admin, Role.SuperAdmin)
-  @Get('/all')
-  async getArticlesAll(
-    @Query('page') page: number,
-    @Query('pagesize') pagesize: number,
-  ) {
-    return this.articleService.getArticlesAll(page, pagesize);
-  }
+  // @Roles(Role.Admin, Role.SuperAdmin)
+  // @Get('/all')
+  // async getArticlesAll(
+  //   @Query('page') page: number,
+  //   @Query('pagesize') pagesize: number,
+  // ) {
+  //   return this.articleService.getArticlesAll(page, pagesize);
+  // }
   //获取按浏览量排序的文章列表(分页)
-  @Public()
-  @Get('hottest')
-  async getHottest(
-    @Query('page') page: number,
-    @Query('pagesize') pagesize: number,
-  ) {
-    return await this.articleService.getListByRead(+page, +pagesize);
-  }
+  // @Public()
+  // @Get('hottest')
+  // async getHottest(
+  //   @Query('page') page: number,
+  //   @Query('pagesize') pagesize: number,
+  // ) {
+  //   return await this.articleService.getListByRead(+page, +pagesize);
+  // }
   //获取按时间排序的文章列表(分页)
-  @Public()
-  @Get('newest')
-  async getNewest(
-    @Query('page') page: number,
-    @Query('pagesize') pagesize: number,
-  ) {
-    return await this.articleService.getListByTime(+page, +pagesize);
-  }
+  // @Public()
+  // @Get('newest')
+  // async getNewest(
+  //   @Query('page') page: number,
+  //   @Query('pagesize') pagesize: number,
+  // ) {
+  //   return await this.articleService.getListByTime(+page, +pagesize);
+  // }
   // 获取按点赞排序的文章列表(分页)
-  @Public()
-  @Get('likes')
-  async getListByLikes(
-    @Query('page') page: number,
-    @Query('pagesize') pagesize: number,
-  ) {
-    return await this.articleService.getByLikes(+page, +pagesize);
-  }
+  // @Public()
+  // @Get('likes')
+  // async getListByLikes(
+  //   @Query('page') page: number,
+  //   @Query('pagesize') pagesize: number,
+  // ) {
+  //   return await this.articleService.getByLikes(+page, +pagesize);
+  // }
   // 获取按收藏排序的文章列表(分页)
-  @Public()
-  @Get('collects')
-  async getListByCollects(
-    @Query('page') page: number,
-    @Query('pagesize') pagesize: number,
-  ) {
-    return await this.articleService.getListByCollects(+page, +pagesize);
-  }
-  // 关键字搜索文章(分页)
-  @Public()
-  @Get('keyword')
-  async getListByKeywords(@Query() query) {
-    return await this.articleService.getListByKeywords(
-      query.keyword,
-      +query.page,
-      +query.pageSize,
-    );
-  }
-  // 通过标签进行搜索(分页)
-  @Public()
-  @Get('tag')
-  async getListByTags(@Query() query) {
-    return await this.articleService.getListByTags(
-      query.tags,
-      +query.page,
-      +query.pageSize,
-    );
-  }
+  // @Public()
+  // @Get('collects')
+  // async getListByCollects(
+  //   @Query('page') page: number,
+  //   @Query('pagesize') pagesize: number,
+  // ) {
+  //   return await this.articleService.getListByCollects(+page, +pagesize);
+  // }
+  // // 关键字搜索文章(分页)
+  // @Public()
+  // @Get('keyword')
+  // async getListByKeywords(@Query() query) {
+  //   return await this.articleService.getListByKeywords(
+  //     query.keyword,
+  //     +query.page,
+  //     +query.pageSize,
+  //   );
+  // }
+  // // 通过标签进行搜索(分页)
+  // @Public()
+  // @Get('tag')
+  // async getListByTags(@Query() query) {
+  //   return await this.articleService.getListByTags(
+  //     query.tags,
+  //     +query.page,
+  //     +query.pageSize,
+  //   );
+  // }
   /*******************************文章CURD*************************************/
   //创建某一篇文章
   @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin, Role.User)
   @Post('create')
   async create(@Body() article: CreateArticleDto, @Req() req: any) {
-    return await this.articleService.create(article, req.user.user_id);
+    return await this.articleService.createArticle(article, req.user.user_id);
   }
   // 修改某一篇文章
   @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin, Role.User)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() body: UpdateArticleDto) {
-    return await this.articleService.updateById(id, body);
+    return await this.articleService.updateArticle(id, body);
   }
   // 删除某一篇文章
   @Roles(Role.Admin, Role.SuperAdmin, Role.TeamAdmin, Role.User)
   @Delete(':article_id')
   delete(@Param('article_id') article_id: string) {
     return this.articleService.delateById(article_id);
+  }
+  // 获取所有的文章分类
+  @Get('categories')
+  async getArticleCategories(): Promise<ArticleCategoryEntity[]> {
+    return this.ArticleCategoryService.getArticleCategories();
   }
   // 获取某一篇文章
   @Public()
@@ -123,7 +146,7 @@ export class ArticleController {
   ) {
     const { user_id } = req.user;
     // -1为问题用户 1为正常用户
-    return await this.articleService.getOneById(article_id, user_id);
+    return await this.articleService.getArticle(article_id, user_id);
   }
 
   /*******************************文章收藏CURD*************************************/
@@ -166,6 +189,7 @@ export class ArticleController {
     const { user_id } = req.user;
     return await this.likeService.cancelLikeArticle(article_id, user_id);
   }
+
   // 查看点赞文章列表
   /*******************************文章标签CRUD*************************************/
   // 创建标签

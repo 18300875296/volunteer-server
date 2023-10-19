@@ -1,6 +1,12 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Userinfo } from './user';
 
+export type ArticleCategory = {
+  category_id: number;
+  categoryName: string;
+  displayName: string;
+};
+
 export type ArticleData = {
   article_id: string;
   create_at: string;

@@ -1,181 +1,8 @@
 <template>
   <div class="home-wrapper">
     <main class="home-main">
-      <section class="main_item-hot">
-        <template v-for="article in likestArticles" :key="article.article_id">
-          <cookie-card class="hot_item" @click="handleClickOpenArticle(article.article_id)">
-            <template #title>
-              <router-link :to="`/discuss/${article.article_id}`" class="hot__item-title">{{
-                article.title
-              }}</router-link>
-              <span class="hot__item-tag">热议中</span>
-            </template>
-            {{ article.summary }}
-            <template #footer>
-              <span class="hot__item-icon">
-                <div class="icon_item">
-                  <img src="https://p3-passport.byteimg.com/img/mosaic-legacy/3795/3047680722~100x100.awebp" />
-                </div>
-                <div class="icon_item">
-                  <img src="https://p3-passport.byteimg.com/img/mosaic-legacy/3795/3047680722~100x100.awebp" />
-                </div>
-                <div class="icon_item">
-                  <img src="https://p3-passport.byteimg.com/img/mosaic-legacy/3795/3047680722~100x100.awebp" />
-                </div>
-              </span>
-              <span class="hot__item-text">{{ article.readCount }}用户正在围观</span>
-              <span class="hot__item-go"
-                >进入讨论
-                <svg
-                  id="mx_n_1682751513297"
-                  t="1682751513293"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="6036"
-                  width="12"
-                  height="12"
-                >
-                  <path
-                    d="M899.903689 478.177684L498.564974 76.711126c-16.975299-16.903995-44.421496-16.903995-61.397818 0-16.976322 16.974603-16.976322 44.558845 0 61.534472l373.471922 373.455597L437.167157 885.300055c-16.976322 16.975627-16.976322 44.420699 0 61.396325 16.976322 16.974603 44.422519 16.974603 61.397818 0l401.338715-401.326365c9.338052-9.267061 13.085553-21.573341 12.309855-33.668821C912.989242 499.680417 909.241741 487.441675 899.903689 478.177684zM597.730478 511.701195c0.850402-12.021801-2.96771-24.260543-12.164539-33.523511L184.224153 76.711126c-16.975299-16.903995-44.418425-16.903995-61.536993 0-16.975299 16.974603-16.833053 44.558845 0 61.534472l373.614168 373.455597-373.614168 373.59886c-16.833053 16.975627-16.975299 44.420699 0 61.396325 17.118567 16.974603 44.560671 16.974603 61.536993 0l401.341785-401.326365C594.762768 536.103978 598.58088 523.797697 597.730478 511.701195z"
-                    fill="#0a84ff"
-                    p-id="6037"
-                  ></path>
-                </svg>
-              </span>
-            </template>
-          </cookie-card>
-        </template>
-      </section>
-      <cookie-card class="main_item-content">
-        <template #title>
-          <div class="content_item-title">
-            <svg viewBox="0 0 1024 1024" width="24" height="24" class="title-icon">
-              <path
-                d="M541.86 912H179.71c-37.33 0-67.71-30.45-67.71-67.84V346.51c0-37.39 30.38-67.84 67.71-67.84h251.12v34.84H179.71c-18.16 0-32.93 14.8-32.93 33v497.66c0 18.2 14.78 33 32.93 33h362.14V912z"
-                fill="#ffa116"
-              ></path>
-              <path
-                d="M844.29 912H481.16c-37.33 0-67.71-30.45-67.71-67.84V179.84c0-37.39 30.38-67.84 67.71-67.84h363.13c37.33 0 67.71 30.45 67.71 67.84v664.32c0 37.39-30.38 67.84-67.71 67.84zM481.16 146.84c-18.16 0-32.93 14.8-32.93 33v664.32c0 18.2 14.78 33 32.93 33h363.13c18.16 0 32.93-14.8 32.93-33V179.84c0-18.2-14.78-33-32.93-33H481.16z"
-                fill="#ffa116"
-              ></path>
-              <path
-                d="M765.46 470.82H559.98c-19.96 0-36.19-16.26-36.19-36.23 0-20 16.24-36.27 36.19-36.27h205.49c19.96 0 36.19 16.26 36.19 36.27 0 19.97-16.24 36.23-36.2 36.23z m-205.48-51.61c-8.46 0-15.34 6.91-15.34 15.38s6.88 15.34 15.34 15.34h205.49c8.46 0 15.34-6.87 15.34-15.34s-6.88-15.38-15.34-15.38H559.98zM765.46 585.2H559.98c-19.96 0-36.19-16.26-36.19-36.27 0-19.97 16.24-36.23 36.19-36.23h205.49c19.96 0 36.19 16.26 36.19 36.23 0 20-16.24 36.27-36.2 36.27z m-205.48-51.61c-8.46 0-15.34 6.87-15.34 15.34s6.88 15.38 15.34 15.38h205.49c8.46 0 15.34-6.91 15.34-15.38s-6.88-15.34-15.34-15.34H559.98zM765.46 707.6H559.98c-19.96 0-36.19-16.26-36.19-36.27 0-19.97 16.24-36.23 36.19-36.23h205.49c19.96 0 36.19 16.26 36.19 36.23 0 20.01-16.24 36.27-36.2 36.27z m-205.48-51.61c-8.46 0-15.34 6.87-15.34 15.34s6.88 15.38 15.34 15.38h205.49c8.46 0 15.34-6.91 15.34-15.38s-6.88-15.34-15.34-15.34H559.98z"
-                fill="#ffa116"
-              ></path>
-            </svg>
-            <span class="title-text">热门志愿团体</span>
-            <router-link to="/team" class="title-more"
-              >更多
-              <svg viewBox="0 0 1024 1024" width="10" height="10">
-                <path
-                  d="M307.6 104.6c-14.2 14.2-14.2 37.2 0 51.4L655 503.4c2.8 2.9 2.8 7.5 0 10.3L307.6 861.2c-14.2 14.2-14.2 37.2 0 51.4 14.2 14.2 37.2 14.2 51.4 0l347.4-347.4c15.6-15.6 23.4-36 23.4-56.5s-7.8-41-23.4-56.5L359 104.6c-14.2-14.2-37.2-14.2-51.4 0z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </router-link>
-          </div>
-        </template>
-        <template #default>
-          <div class="content_item-team">
-            <template v-for="team in hotTeams" :key="team.team_id">
-              <cookie-card class="team_item">
-                <template #title>
-                  <div class="team_item-image">
-                    <img :src="team.logo" />
-                  </div>
-                </template>
-                <div class="team_item-name">{{ team.name }}</div>
-                <div class="team_item-hot">热门指数 {{ team.read_count }}</div>
-                <template #footer>
-                  <router-link :to="`/team/${team.team_id}`" class="team_item-application"
-                    ><svg viewBox="0 0 1084 1024" width="14" height="14">
-                      <path
-                        d="M707.764706 514.228706a255.337412 255.337412 0 1 1 0-510.674824 255.337412 255.337412 0 0 1 0 510.674824z m0-60.235294a195.102118 195.102118 0 1 0 0-390.204236 195.102118 195.102118 0 0 0 0 390.204236z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M566.633412 54.633412l-25.901177 54.39247a177.272471 177.272471 0 1 0 35.418353 298.164706l37.948236 46.742588a237.507765 237.507765 0 1 1-47.465412-399.36z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M921.238588 503.928471a30.117647 30.117647 0 1 1-26.804706 53.910588 420.321882 420.321882 0 0 0-606.991058 376.711529 30.117647 30.117647 0 0 1-60.235295 0 480.557176 480.557176 0 0 1 694.031059-430.682353z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M545.852235 464.956235a30.117647 30.117647 0 0 1-14.095059 58.548706 334.607059 334.607059 0 0 0-413.214117 325.330824 30.117647 30.117647 0 1 1-60.235294 0A394.842353 394.842353 0 0 1 545.792 465.016471z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M996.773647 785.347765a30.117647 30.117647 0 0 1 0 60.235294h-241.302588a30.117647 30.117647 0 1 1 0-60.235294h241.302588z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M906.24 936.056471a30.117647 30.117647 0 1 1-60.235294 0v-241.242353a30.117647 30.117647 0 1 1 60.235294 0v241.302588z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                    加入
-                  </router-link>
-                </template>
-              </cookie-card>
-            </template>
-          </div>
-          <template v-for="article in newestArticles" :key="article.article_id">
-            <div class="article-divider"></div>
-            <div class="article">
-              <router-link
-                v-if="article.images !== '[]'"
-                class="article_item-cover"
-                :to="`/discuss/${article.article_id}`"
-              >
-                <img :src="article.images" />
-              </router-link>
-              <div class="article_item-content">
-                <div class="article__item-title">
-                  <div class="title_item-content">
-                    <img
-                      src="https://p3-passport.byteimg.com/img/mosaic-legacy/3795/3047680722~100x100.awebp"
-                      class="title__item-icon"
-                    />
-                    <span class="title__item-span">发布了</span>
-                    <router-link :to="`/discuss/${article.article_id}`" class="title__item-text">{{
-                      article.title
-                    }}</router-link>
-                  </div>
-                  <div class="title_item-time">{{ $formatRelativeTime(article.create_at) }}</div>
-                </div>
-                <router-link :to="`/discuss/${article.article_id}`">
-                  <p class="article__item-content">{{ article.summary }}</p>
-                </router-link>
-                <div class="article__item-tags">
-                  <div class="tag_item">
-                    <svg
-                      t="1682830913221"
-                      viewBox="0 0 1024 1024"
-                      version="1.1"
-                      xmlns="http://www.w3.org/2000/svg"
-                      p-id="3700"
-                      width="14"
-                      height="14"
-                    >
-                      <path
-                        d="M822.72 415.424c0-175.296-164.032-317.952-365.44-317.952-201.536 0-365.44 142.656-365.44 317.952 0 105.152 59.008 202.368 158.336 261.824v102.528c0 6.272 3.456 12.032 8.96 14.912a16.448 16.448 0 0 0 17.344-0.832l46.656-30.72c0.768-0.512 1.408-1.088 2.176-1.728l53.504-35.712c26.624 5.056 52.928 7.68 78.464 7.68 201.472 0 365.44-142.656 365.44-317.952z m-365.504 284.032c-25.472 0-51.904-2.816-78.528-8.256a16.96 16.96 0 0 0-12.864 2.432l-61.632 41.216c-0.768 0.384-1.472 0.96-2.112 1.472l-18.048 12.032v-80.896a16.96 16.96 0 0 0-8.576-14.656c-93.76-52.928-149.76-141.632-149.76-237.376 0-156.672 148.672-284.032 331.584-284.032 182.784 0 331.648 127.424 331.648 284.032 0 156.672-148.864 284.032-331.712 284.032z m409.6-174.144a181.12 181.12 0 0 1 36.48 107.904c0 68.288-40.064 131.84-107.264 169.664a16.96 16.96 0 0 0-8.64 14.72v50.624l-5.824-3.776a9.088 9.088 0 0 0-1.792-1.408l-45.12-30.208c-3.776-2.432-8.448-3.456-12.8-2.432-79.296 16.448-156.096-1.536-213.312-44.48l-20.352 27.136c63.232 47.36 147.392 68.032 233.536 51.904l37.248 24.96c0.704 0.576 1.28 1.024 1.984 1.344l34.048 22.592a17.472 17.472 0 0 0 17.344 0.832 17.024 17.024 0 0 0 9.024-14.976V827.52c72.64-44.48 115.776-116.352 115.776-194.24 0-45.504-14.848-89.792-43.136-128l-27.2 20.032z"
-                        p-id="3701"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                    文章
-                  </div>
-                  <template v-for="(tag, index) in JSON.parse(article.tags)" :key="index">
-                    <div class="tag_item">{{ tag }}</div>
-                  </template>
-                </div>
-              </div>
-            </div>
-          </template>
-        </template>
-      </cookie-card>
-      <button class="more-loading-btn" @click="handleClick">加载更多</button>
+      <HomeHeader />
+      <HomeBody />
     </main>
     <aside class="home-aside">
       <Search v-model="searchValue" :placeholder="'搜索志愿活动、志愿团体、用户...'" />
@@ -309,17 +136,18 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onBeforeMount, ref, watch, onMounted, nextTick, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { onBeforeMount, ref, onMounted, nextTick, computed } from 'vue';
+
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper';
 import { Article, SlideData, Team } from '../assets/interface';
-import { getHottestAPI, getNewestAPI, getLikesAPI } from '../api/discuss';
-import { getHotTeamsAPI } from '../api/team';
+
 import CookieCard from '../components/cookie-card/CookieCard.vue';
 import { Search } from '@/components/common/search/Search.tsx';
 import Login from '@/components/common/Login.vue';
 import { getSlidesAPI } from '../api/home';
+import HomeHeader from '@/components/home/HomeHeader.vue';
+import HomeBody from '@/components/home/HomeBody.vue';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import useUserStore from '@/store/user';
@@ -356,80 +184,12 @@ const getSLides = async () => {
   slidesData.value = res.data;
 };
 
-const hottestList = ref<Article[]>([]); // 热门文章
-const likestArticles = ref<any[]>([]); // 最多讨论的文章
-const hottestActives = ref([]); // 热门活动
-const newestArticles = ref<any[]>([]); // 最新的文章
-const hotTeams = ref<Team[]>([]);
-const page = ref(0);
-const pageSize = ref(10);
-const total = ref(0);
-// const articleList = ref<Article[]>([]);
-const router = useRouter();
-
-const handleClickOpenArticle = (article_id: string): void => {
-  router.push(`/discuss/${article_id}`);
-};
-// 获取热门团队
-const getHotTeams = async () => {
-  const res = await getHotTeamsAPI();
-  hotTeams.value = res.data.teams;
-};
-// 获取最多点赞文章
-const getLikesArticles = async () => {
-  const res = await getLikesAPI();
-  likestArticles.value = res.data.articles;
-};
-// 获取最热文章
-const getHotArticle = async () => {
-  try {
-    const { data } = await getHottestAPI();
-    hottestList.value = data.articles;
-  } catch (error) {
-    console.log(error);
-  }
-};
-// 获取最新文章
-const getNewArticle = async () => {
-  try {
-    page.value += 1;
-    const { data } = await getNewestAPI(page.value, pageSize.value);
-    newestArticles.value = data.articles;
-    total.value = data.last_page; // 记录最后的页数
-    if (total.value === 0) {
-      console.log('暂无数据');
-    }
-    if (total.value === 1) {
-      // alert("暂时没有了");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-// 获取全部文章
-const getMoreArticle = async () => {
-  page.value += 1;
-  if (total.value >= page.value) {
-    const { data } = await getNewestAPI(page.value, pageSize.value);
-    data.articles.forEach((article: any) => newestArticles.value.push(article));
-  }
-};
 // --------获取用户数据---------------
 const getUserInfo = async () => {
   const userStore = useUserStore();
   await userStore.getUserInfo();
 };
 
-const handleClick = async () => {
-  await getMoreArticle();
-};
-onBeforeMount(async () => {
-  await getLikesArticles();
-  await getNewArticle();
-  await getHotTeams();
-  await getSLides();
-  await getHotArticle();
-});
 onMounted(async () => {
   await nextTick();
   await getUserInfo();
@@ -493,40 +253,7 @@ onMounted(async () => {
   margin-bottom: 12px;
 }
 /**------------------------------------------------------------------------- */
-.main_item-hot {
-  display: flex;
-  flex-flow: nowrap;
-  justify-content: space-between;
-  min-height: 150px;
-  overflow: hidden;
-  gap: 10px;
-}
-.hot_item {
-  width: 362px;
-}
-.hot__item-title {
-  font-size: 16px;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
-  line-height: 20px;
-  letter-spacing: 1.1px;
-}
-.hot__item-tag {
-  flex: 0 0 auto;
-  color: rgba(255, 161, 22, 1);
-  font-size: 12px;
-  line-height: 20px;
-  background: rgba(255, 161, 22, 0.15);
-  border-radius: 12px;
-  padding: 2px 8px;
-}
-.hot__item-icon {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-}
+
 .icon_item {
   width: 16px;
   height: 16px;
@@ -537,22 +264,7 @@ onMounted(async () => {
   object-fit: cover;
   border-radius: 50%;
 }
-.hot__item-text {
-  font-size: 14px;
-  line-height: 18px;
-  color: rgba(140, 140, 140, 1);
-  text-indent: 6px;
-}
-.hot__item-go {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  position: absolute;
-  gap: 2px;
-  right: 0;
-  color: var(--blue-color);
-  font-size: 14px;
-}
+
 /* ************************************************* */
 .main_item-content {
   margin: 15px 0;
@@ -926,3 +638,4 @@ onMounted(async () => {
   background-color: rgba(0, 10, 32, 0.1);
 }
 </style>
+../api/article

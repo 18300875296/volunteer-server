@@ -829,3 +829,4 @@ onBeforeMount(async () => {
   margin-left: 6px;
 }
 </style>
+../api/article

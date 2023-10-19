@@ -12,7 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { ArticleGuard } from './article.guard';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
-import { LogsModule } from '../logs/logs.module';
+// import { LogsModule } from '../logs/logs.module';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { LogsModule } from '../logs/logs.module';
     }),
     TypeOrmModule.forFeature([UserEntity]),
     UserModule,
-    LogsModule,
+    // LogsModule,
   ],
   controllers: [AuthController],
   providers: [

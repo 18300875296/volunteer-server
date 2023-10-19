@@ -1,30 +1,36 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-//import { ArticleEntity } from 'src/logical/article/entities/article.entity';
 
 @Entity('tag')
 export class TagEntity {
-  @PrimaryGeneratedColumn({
-    type: 'smallint',
-    comment: '文章标签id',
-  })
-  id: number;
+  @PrimaryGeneratedColumn('increment')
+  tag_id: number;
 
   @Column({
     type: 'varchar',
     nullable: false,
-    comment: '标签名称',
-    default: '志愿服务',
+    comment: '标签内部名称',
   })
-  name: string;
+  tagName: string;
 
   @Column({
-    type: 'integer',
-    comment: '标签引用次数',
-    default: 0,
+    type: 'varchar',
+    nullable: false,
+    comment: '标签显示名',
   })
-  count: number;
+  displayName: string;
 
-  //一个标签对应多篇文章
-  // @ManyToMany(() => ArticleEntity, (article) => article.tags)
-  // articles: ArticleEntity[];
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    comment: '创建标签的用户id',
+  })
+  user_id: string;
+
+  @Column({
+    type: 'boolean',
+    nullable: false,
+    comment: '是否为自定义标签',
+    default: false,
+  })
+  is_custom: boolean;
 }

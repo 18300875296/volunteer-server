@@ -9,7 +9,8 @@ const CookieIcon = defineComponent({
     },
     color: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
+      default: 'CurrentColor',
     },
   },
   setup(props) {

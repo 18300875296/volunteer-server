@@ -465,3 +465,4 @@ onBeforeMount(async () => {
   cursor: pointer;
 }
 </style>
+../../api/article

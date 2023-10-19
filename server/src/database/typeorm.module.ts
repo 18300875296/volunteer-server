@@ -17,12 +17,14 @@ import { TeamMemberEntity } from 'src/logical/team-member/entities/team-member.e
 import { TeamApplicationEntity } from 'src/logical/team-application/entities/team-application.entity';
 import { TeamMemberApplicationEntity } from 'src/logical/team-member-application/entities/team-member-application.entity';
 import { SlideEntity } from 'src/logical/slide/entities/slide.entity';
-import { LogsEntity } from 'src/logical/logs/entities/log.entity';
+// import { LogsEntity } from 'src/logical/logs/entities/log.entity';
 import { ElegantEntity } from 'src/logical/elegant/entities/elegant.entity';
 import { CommentChildrenEntity } from 'src/logical/comment/entities/comment.children.entity';
 import { CommentParentEntity } from 'src/logical/comment/entities/comment.parent.entity';
 import { MenuEntity } from 'src/logical/menu/entity/menu.entity';
 import { MenuTagEntity } from 'src/logical/menu_tag/entities/menu_tag.entity';
+import { ArticleCategoryEntity } from 'src/logical/article/entities/articleCategory.entity';
+import { TagEntity } from 'src/logical/tag/entities/tag.entity';
 
 @Module({
   imports: [
@@ -40,6 +42,7 @@ import { MenuTagEntity } from 'src/logical/menu_tag/entities/menu_tag.entity';
       retryAttempts: 10, //连接数据的个数
       // retryDelay: 3000, //重连
       entities: [
+        TagEntity,
         SlideEntity,
         ActiveEntity,
         ArticleEntity,
@@ -54,12 +57,13 @@ import { MenuTagEntity } from 'src/logical/menu_tag/entities/menu_tag.entity';
         TeamMemberEntity,
         TeamApplicationEntity,
         TeamMemberApplicationEntity,
-        LogsEntity,
+        // LogsEntity,
         ElegantEntity,
         CommentChildrenEntity,
         CommentParentEntity,
         MenuEntity,
         MenuTagEntity,
+        ArticleCategoryEntity,
       ],
       // autoLoadEntities: true,
       // dropSchema: true,

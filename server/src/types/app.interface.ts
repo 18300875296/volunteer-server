@@ -1,6 +1,6 @@
 import { Role } from 'src/logical/role/role.enum';
 
-interface TokenPreload {
+export interface TokenPreload {
   user_id: string;
   username: string;
   iat: number;

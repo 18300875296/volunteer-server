@@ -24,7 +24,7 @@ const CookieInput = defineComponent({
       default: 'none',
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       required: true,
     },
     height: {

@@ -22,6 +22,14 @@ export class ArticleEntity {
   article_id: string;
 
   @Column({
+    type: 'integer',
+    nullable: false,
+    default: 1,
+    comment: '分类id',
+  })
+  category_id: number;
+
+  @Column({
     type: 'varchar',
     nullable: false,
     comment: '文章标题',

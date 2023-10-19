@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LikeEntity } from './entities/like.entity';
-import { ArticleRepository } from '../article/article.repository';
+// import { ArticleRepository } from '../article/article.repository';
 import { ArticleService } from '../article/article.service';
 
 import { UserEntity } from '../user/entities/user.entity';
